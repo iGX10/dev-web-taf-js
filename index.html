@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Users list</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        .user .card {
+            margin: 10px;
+        }
+
+        /*.female {}
+
+        .male {}
+        */
+        .user img {
+            opacity: 0.7
+        }
+
+        .user:hover img {
+            opacity: 1;
+            transform: scale(1.04);
+            transition: 200ms
+        }
+
+        .table {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Users List</h1>
+        <button class="btn btn-success" onclick="toggleGrid()">Grid</button>
+        <button class="btn btn-success" onclick="toggleTable()">Table</button>
+
+
+        <div class="users">
+
+
+            <div class="row gridMode">
+
+            </div>
+
+
+
+            <div class="row tableMode">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Img</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Email</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <div id="gabaris" style="display:none">
+        <div class="col-md-4 col-sm-6 user">
+            <div class="card" style="width: 18rem;">
+                <img src="" class="card-img-top" alt="">
+                <div class="card-body">
+                    <h5 class="card-title name">Tot momo</h5>
+                    <p class="card-text email"></p>
+                    <button class="btn btn-primary btn-block">Modifier</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tabalis" style="display:none">
+        <div class="user">
+            <table>
+            <tr>
+                <td class="img">
+                    <img src="" alt="">
+                </td>
+                <td class="firstName">Mark</td>
+                <td class="lastName">Otto</td>
+                <td class="email">@mdo</td>
+                <td>
+                    <button class="btn btn-primary btn-block">Modifier</button>
+                </td>
+            </tr>
+            </table>
+        </div>
+    </div>
+
+
+
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="users.js"></script>
+
+
+
+
+    <script>
+        var grid = document.querySelector('.gridMode')
+
+        var table = document.querySelector('.tableMode')
+
+        function toggleGrid() {
+            table.style.display = "none"
+            grid.style.display = "flex"
+        }
+
+        function toggleTable() {
+            table.style.display = "block"
+            grid.style.display = "none"
+        }
+
+
+        showGrid()
+
+        showTable()
+
+
+        table.style.display = "none"
+        grid.style.display = "flex"
+
+
+
+
+        function showGrid() {
+            
+
+            var gabari = document.querySelector('#gabaris .user')
+            var dest = document.querySelector('.users .gridMode')
+            users.forEach(function (user, index) {
+                var copy = gabari.cloneNode(true)
+                copy.querySelector('.name').innerHTML = '<b>' + user.name.last + '</b> ' + user.name.first
+                copy.querySelector('.email').innerText = user.email
+                copy.querySelector('img').setAttribute('src', user.picture.large)
+                copy.classList.add(user.gender)
+                copy.querySelector('button').setAttribute('onclick', 'update(' + index + ')')
+                dest.appendChild(copy);
+            })
+        }
+
+
+
+
+        function showTable() {
+
+            var tabalis = document.querySelector('#tabalis .user table tr').cloneNode(true)
+            var dest = document.querySelector('.users .tbody')
+
+            users.forEach(function (user, index) {
+                var copy = tabalis.cloneNode(true)
+                console.log(copy);
+                copy.querySelector('.firstName').innerHTML = user.name.first
+                copy.querySelector('.lastName').innerHTML = user.name.last
+                copy.querySelector('.email').innerText = user.email
+                copy.querySelector('img').setAttribute('src', user.picture.thumbnail)
+                copy.classList.add(user.gender)
+                copy.querySelector('button').setAttribute('onclick', 'update(' + index + ')')
+                dest.appendChild(copy);
+            })
+        }
+
+
+
+        function update(index) {
+            console.log(users[index])
+        }
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>
